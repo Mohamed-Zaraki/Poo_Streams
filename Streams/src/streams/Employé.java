@@ -41,23 +41,22 @@ public class Employé {
 										new Employé(3  , "Alice", 40 , 70000.0, "IT") , 
 										new Employé(4 , "Bob" , 45 , 80000.0 , "Finance") ,
 										new Employé(5 , "Charlie" , 50 , 90000.0 , "HR"));
-	
+				//print every single employe
 				Employés.stream().forEach(employe -> System.out.println(employe));
-				
+				//calculate the average of employe's salarie
 				OptionalDouble moyenne = Employés.stream()
                         .mapToDouble(employe -> employe.salaire)
                         .average();
 				
 				System.out.println(moyenne);
-				
+				//grouping employees by departement
 				Map<String , List<Employé>> GroupeBydepartement = Employés.stream().collect(Collectors.groupingBy(employe -> employe.departement));
 				System.out.println(GroupeBydepartement);
-				
+				//Calculer la moyenne des salaires par département.
 				Map<String , Double>GroupeAndCalc = Employés.stream().collect(Collectors.groupingBy(employe ->employe.departement , Collectors.averagingDouble(employe -> employe.salaire)));
 				System.out.println(GroupeAndCalc);
-	
-				Map<String , Double> oldindepartement =Employés.stream().collect(Collectors.groupingBy(
-				        employe -> employe.departement,
+					//Extrait le nom et le salaire des employés les plus âgés dans chaque département.
+				Map<String , Double> oldindepartement =Employés.stream().collect(Collectors.groupingBy(employe -> employe.departement,
 				        Collectors.collectingAndThen(
 				            Collectors.maxBy(Comparator.comparingInt(employe -> employe.age)) ,Employe -> Employe.get().salaire)));
 	
